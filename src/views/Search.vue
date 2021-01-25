@@ -1,11 +1,8 @@
 <template>
-  <div class="full blue-grey lighten-3 d-flex align-center flex-column">
-    <SkeletonLoader
-      v-if="isLoading"
-      :width="'85%'"
-      :height="'515px'"
-      :type="'table'"
-    />
+  <div class="h blue-grey lighten-3">
+    <div v-if="isLoading" class="table">
+      <Loader />
+    </div>
     <Table
       v-show="searchResults.length"
       :searchResults="searchResults"
@@ -24,11 +21,11 @@ import { mapMutations } from "vuex";
 import Pagination from "./../components/Pagination.vue";
 import Modal from "./../components/Modal.vue";
 import Table from "./../components/Table.vue";
-import SkeletonLoader from "./../components/SkeletonLoader.vue";
+import Loader from "./../components/Loader.vue";
 
 export default {
   name: "Search",
-  components: { Table, SkeletonLoader, Modal, Pagination },
+  components: { Table, Loader, Modal, Pagination },
   computed: {
     ...mapGetters(["isLoading", "searchResults", "showModal"]),
     currentUrlPage() {
@@ -55,8 +52,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.full {
-  width: 100%;
-  height: 100%;
+.table {
+  width: 85%;
+  height: 91%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.h {
+  height: 79%;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

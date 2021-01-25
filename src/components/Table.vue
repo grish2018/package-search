@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <v-simple-table fixed-header height="515px">
+    <v-simple-table fixed-header width="85%" height="542px">
       <template v-slot:default>
         <thead>
           <tr>
@@ -80,6 +80,10 @@ export default {
 }
 .table {
   width: 85%;
+  height: 91%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &__row {
     cursor: pointer;
   }

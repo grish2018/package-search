@@ -35,7 +35,7 @@ export default {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #b0bec5;
+      background: #546e7a;
       margin: -4px 0 0 -4px;
     }
     &:nth-child(1) {

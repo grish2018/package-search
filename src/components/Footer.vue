@@ -1,5 +1,5 @@
 <template>
-  <v-footer height="70px" class="pa-0" absolute>
+  <v-footer width="100%" class="fh pa-0 mt-0">
     <v-card
       height="100%"
       width="100%"
@@ -26,6 +26,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fh {
+  height: 10%;
+}
 .authorInfo {
   display: flex;
   flex-direction: column;

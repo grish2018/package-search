@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div
-      style="height: 100vh"
+      style="height: 100%"
       class="blue-grey lighten-3 d-flex align-center flex-column"
     >
       <Modal v-if="showModal" />

@@ -6,7 +6,7 @@
     :length="Math.ceil(totalResults / 10)"
     :total-visible="7"
     @input="setPage"
-    class="mt-5 mb-5"
+    class="mt-1 mb-1"
   />
 </template>
 

@@ -36,7 +36,6 @@ export default {
                 const { data } = await searchResults(text, from);
                 commit('setSearchResults', data.objects);
                 commit('setTotalResults', data.total)
-                console.log(data, 'ok')
                 state.isLoading = false
             } catch (error) {
                 console.log(error);

@@ -1,32 +1,51 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <v-app>
+    <div
+      style="height: 100vh"
+      class="blue-grey lighten-3 d-flex align-center flex-column"
+    >
+      <Modal v-if="showModal" />
+      <TextField />
+      <router-view />
+      <Footer />
     </div>
-    <router-view/>
-  </div>
+  </v-app>
 </template>
 
+<script>
+import TextField from "./components/TextField.vue";
+import Footer from "./components/Footer.vue";
+import Modal from "./components/Modal.vue";
+import { mapGetters } from "vuex";
+export default {
+  name: "App",
+  components: { TextField, Modal, Footer },
+  computed: {
+    ...mapGetters(["showModal", "searchResults"]),
+    currentUrlPage() {
+      return +this.$route.query.currentPage;
+    },
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  box-sizing: border-box;
+  outline: none;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #f9f9ff;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #dededf;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7d7d84;
 }
 </style>

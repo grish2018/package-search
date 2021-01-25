@@ -1,0 +1,95 @@
+<template>
+  <div class="table">
+    <v-simple-table fixed-header height="515px">
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">Name</th>
+            <th class="text-left">Description</th>
+            <th class="text-left">npm link</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Version</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(item, index) in searchResults"
+            :key="index"
+            @click="showModal(item.package.name)"
+            class="table__row"
+          >
+            <td>{{ item.package.name }}</td>
+            <td>{{ item.package.description }}</td>
+            <td>
+              <a class="table__rowLink" :href="item.package.links.npm">{{
+                item.package.links.npm
+              }}</a>
+            </td>
+            <td>
+              {{ formatDate(item.package.date) }}
+            </td>
+            <td>{{ item.package.version }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </div>
+</template>
+
+<script>
+import moment from "moment";
+import { mapMutations } from "vuex";
+export default {
+  name: "Table",
+  data() {
+    return {};
+  },
+  props: {
+    searchResults: {
+      type: Array,
+      required: true,
+    },
+  },
+  methods: {
+    ...mapMutations(["toggleShowModal"]),
+    formatDate(date) {
+      return moment(date).format("DD/MM/YYYY");
+    },
+    showModal(name) {
+      const currentQuery = this.$route.query;
+      this.$router.push({
+        path: "/search",
+        query: { ...currentQuery, packageName: name },
+      });
+      this.toggleShowModal(true);
+      this.$store.dispatch("fetchCurrentPackage", name);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  &__text {
+    font-size: 20px;
+  }
+}
+.table {
+  width: 85%;
+  &__row {
+    cursor: pointer;
+  }
+  &__rowLink {
+    text-decoration: none;
+    color: black;
+    &:hover {
+      color: blue;
+      text-decoration: underline;
+    }
+  }
+}
+</style>

@@ -23,14 +23,11 @@
         </v-list-group>
       </v-list>
     </v-card>
-    <v-footer height="80px" class="pa-0" absolute>
-      <v-card height="100%" width="100%" class="p-0"></v-card>
-    </v-footer>
   </div>
 </template>
 
 <script>
-import Loader from "./../components/Loader";
+import Loader from "./Loader.vue";
 import moment from "moment";
 import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
@@ -40,10 +37,15 @@ export default {
   methods: {
     ...mapMutations(["toggleShowModal"]),
     hideModal() {
+      const currentQuery = this.$route.query;
       this.toggleShowModal(false);
+      this.$router.push({
+        path: "/search",
+        query: { ...currentQuery, packageName: "" },
+      });
     },
     formatedText(text) {
-      if (text === `undefined`) {
+      if (text === `undefined` || text === "") {
         return `-----------------------------`;
       } else {
         return text;
@@ -93,7 +95,6 @@ export default {
 <style lang="scss" scoped>
 .modal {
   display: flex;
-  flex-direction: column;
   position: absolute;
   width: 100%;
   height: 100%;

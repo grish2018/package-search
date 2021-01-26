@@ -1,4 +1,4 @@
-import { searchResults, currentPackage } from './../../api/fetch'
+import { searchResults, currentPackage } from '../../api/fetch'
 
 export default {
     state: {

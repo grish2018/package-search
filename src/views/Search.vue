@@ -1,23 +1,18 @@
 <template>
-  <div class="h blue-grey lighten-3">
-    <div v-if="isLoading" class="table">
-      <Loader />
-    </div>
-    <Table
-      v-show="searchResults.length"
-      :searchResults="searchResults"
-      v-else
-    />
-    <Pagination
-      :currentUrlPage="currentUrlPage"
-      v-show="searchResults.length"
-    />
+  <div class="search">
+    <Loader v-if="isLoading" />
+    <template v-else>
+      <Table v-show="searchResults.length" :searchResults="searchResults" />
+      <Pagination
+        :currentUrlPage="currentUrlPage"
+        v-show="searchResults.length"
+      />
+    </template>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { mapMutations } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Pagination from "./../components/Pagination.vue";
 import Modal from "./../components/Modal.vue";
 import Table from "./../components/Table.vue";
@@ -29,41 +24,34 @@ export default {
   computed: {
     ...mapGetters(["isLoading", "searchResults", "showModal"]),
     currentUrlPage() {
-      return +this.$route.query.currentPage;
+      return Number(this.$route.query.page);
     },
   },
   methods: {
+    ...mapActions(["fetchSearchResults", "fetchCurrentPackage"]),
     ...mapMutations(["toggleShowModal"]),
   },
   created() {
-    console.log("ok");
-    const { search, from, packageName } = this.$route.query;
-    this.$store.dispatch({
-      type: "fetchSearchResults",
+    const { search, from, package_name } = this.$route.query;
+    this.fetchSearchResults({
       text: search,
       from,
     });
-    if (packageName) {
+    if (package_name) {
       this.toggleShowModal(true);
-      this.$store.dispatch("fetchCurrentPackage", packageName);
+      this.fetchCurrentPackage(package_name);
     }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.table {
+.search {
   width: 85%;
-  height: 91%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.h {
-  height: 79%;
-  width: 85%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 </style>

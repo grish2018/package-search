@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "TextField",
   data() {
@@ -23,16 +24,16 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["fetchSearchResults"]),
     changeHandler() {
-      this.$store.dispatch({
-        type: "fetchSearchResults",
+      this.fetchSearchResults({
         text: this.search,
         from,
       });
       const from = 0;
       this.$router.push({
         path: "/search",
-        query: { search: this.search, from, currentPage: 1 },
+        query: { search: this.search, from, page: 1 },
       });
     },
   },

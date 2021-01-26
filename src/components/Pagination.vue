@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Pagination",
   data() {
@@ -25,8 +25,8 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.currentPage) {
-      this.page = +this.$route.query.currentPage;
+    if (this.$route.query.page) {
+      this.page = Number(this.$route.query.page);
     }
   },
   watch: {
@@ -38,20 +38,20 @@ export default {
     ...mapGetters(["totalResults"]),
   },
   methods: {
+    ...mapActions(["fetchSearchResults"]),
     setPage() {
-      if (this.page === +this.$route.query.currentPage) {
+      if (this.page === Number(this.$route.query.page)) {
         return;
       } else {
         const { search } = this.$route.query;
         const from = (this.page - 1) * 10;
-        this.$store.dispatch({
-          type: "fetchSearchResults",
+        this.fetchSearchResults({
           text: search,
           from,
         });
         this.$router.push({
           path: "/search",
-          query: { search, from, currentPage: this.page },
+          query: { search, from, page: this.page },
         });
       }
     },

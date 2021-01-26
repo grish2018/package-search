@@ -6,7 +6,9 @@
     >
       <Modal v-if="showModal" />
       <TextField />
-      <router-view />
+      <main>
+        <router-view />
+      </main>
       <Footer />
     </div>
   </v-app>
@@ -23,7 +25,7 @@ export default {
   computed: {
     ...mapGetters(["showModal", "searchResults"]),
     currentUrlPage() {
-      return +this.$route.query.currentPage;
+      return Number(this.$route.query.page);
     },
   },
 };
@@ -33,6 +35,13 @@ export default {
 * {
   box-sizing: border-box;
   outline: none;
+}
+main {
+  height: 79%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 ::-webkit-scrollbar {
   width: 7px;

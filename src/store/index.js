@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import serachResults from './modules/searchResults'
+import serach from './modules/search'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    serachResults
+    serach
   }
 })

@@ -4,9 +4,9 @@ module.exports = {
   ],
   "devServer": {
     "proxy": {
-      "/api": {
+      "/npm": {
         "target": process.env.API_URL || 'https://registry.npmjs.org',
-        "pathRewrite": { '^/api': '' },
+        "pathRewrite": { '^/npm': '' },
         "changeOrigin": true,
         "secure": false
       },

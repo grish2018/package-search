@@ -38,12 +38,9 @@
 
 <script>
 import moment from "moment";
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 export default {
   name: "Table",
-  data() {
-    return {};
-  },
   props: {
     searchResults: {
       type: Array,
@@ -51,6 +48,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["fetchCurrentPackage"]),
     ...mapMutations(["toggleShowModal"]),
     formatDate(date) {
       return moment(date).format("DD/MM/YYYY");
@@ -59,10 +57,10 @@ export default {
       const currentQuery = this.$route.query;
       this.$router.push({
         path: "/search",
-        query: { ...currentQuery, packageName: name },
+        query: { ...currentQuery, package_name: name },
       });
       this.toggleShowModal(true);
-      this.$store.dispatch("fetchCurrentPackage", name);
+      this.fetchCurrentPackage(name);
     },
   },
 };
@@ -79,7 +77,7 @@ export default {
   }
 }
 .table {
-  width: 85%;
+  width: 100%;
   height: 91%;
   display: flex;
   align-items: center;

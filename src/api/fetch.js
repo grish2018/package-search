@@ -7,9 +7,9 @@ export function searchResults(text, from) {
     source && source.cancel();
     source = axios.CancelToken.source();
 
-    return axios.get(`/api/-/v1/search?text=${text}&size=10&from=${from}`, { cancelToken: source.token })
+    return axios.get(`/npm/-/v1/search?text=${text}&size=10&from=${from}`, { cancelToken: source.token })
 }
 
 export function currentPackage(name) {
-    return axios.get(`/api/${name}`)
+    return axios.get(`/npm/${name}`)
 }

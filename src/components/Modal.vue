@@ -41,7 +41,7 @@ export default {
       this.toggleShowModal(false);
       this.$router.push({
         path: "/search",
-        query: { ...currentQuery, packageName: "" },
+        query: { ...currentQuery, package_name: "" },
       });
     },
     formatedText(text) {
